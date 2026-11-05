@@ -1,0 +1,20 @@
+{
+  "name": "recipe-swap",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Recipe Swap - a community recipe-sharing app (student capstone)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.2"
+  },
+  "devDependencies": {
+    "vite": "^8.3.5"
+  }
+}

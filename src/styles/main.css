@@ -1,0 +1,59 @@
+:root {
+  --recipe-accent: #d96c3d;
+  --recipe-accent-dark: #b4532a;
+  --recipe-accent-soft: #fdf1ea;
+  --recipe-cream: #faf6f1;
+}
+
+body {
+  background-color: var(--recipe-cream);
+  min-height: 100vh;
+}
+
+.navbar-recipe {
+  background: linear-gradient(90deg, var(--recipe-accent) 0%, var(--recipe-accent-dark) 100%);
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.12);
+}
+
+.navbar-recipe .nav-link.active {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.btn-recipe {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--recipe-accent);
+  --bs-btn-border-color: var(--recipe-accent);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--recipe-accent-dark);
+  --bs-btn-hover-border-color: var(--recipe-accent-dark);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--recipe-accent-dark);
+  --bs-btn-active-border-color: var(--recipe-accent-dark);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--recipe-accent);
+  --bs-btn-disabled-border-color: var(--recipe-accent);
+}
+
+.card {
+  border: 0;
+  box-shadow: 0 0.125rem 0.4rem rgba(30, 20, 10, 0.07);
+}
+
+.card-lift {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.75rem 1.5rem rgba(30, 20, 10, 0.12);
+}
+
+.text-accent {
+  color: var(--recipe-accent-dark) !important;
+}
+
+.bg-accent-soft {
+  background-color: var(--recipe-accent-soft) !important;
+}
