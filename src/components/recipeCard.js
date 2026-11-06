@@ -8,7 +8,7 @@ export function recipeCoverUrl(recipe) {
   return cover ? getPublicUrl('recipe-photos', cover.storage_path) : '';
 }
 
-export function renderRecipeCard(recipe, stats) {
+export function renderRecipeCard(recipe, stats, extraHtml = '') {
   const cover = recipeCoverUrl(recipe);
   const totalMinutes = (recipe.prep_minutes || 0) + (recipe.cook_minutes || 0);
   const authorName = recipe.author?.display_name || 'Unknown cook';
@@ -56,5 +56,6 @@ export function renderRecipeCard(recipe, stats) {
           </div>
         </div>
       </a>
+      ${extraHtml}
     </div>`;
 }
