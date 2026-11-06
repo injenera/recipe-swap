@@ -1,5 +1,28 @@
 import { supabase } from './supabase.js';
 
+export async function getProfile(userId) {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('id, display_name, bio, avatar_path, created_at, updated_at')
+    .eq('id', userId)
+    .maybeSingle();
+  return { data, error };
+}
+
+export async function updateProfile(userId, fields) {
+  const payload = {};
+  for (const key of ['display_name', 'bio', 'avatar_path']) {
+    if (key in fields) payload[key] = fields[key];
+  }
+  const { data, error } = await supabase
+    .from('profiles')
+    .update(payload)
+    .eq('id', userId)
+    .select('id, display_name, bio, avatar_path, created_at, updated_at')
+    .single();
+  return { data, error };
+}
+
 export async function register(email, password, displayName) {
   const { data, error } = await supabase.auth.signUp({
     email,

@@ -2,7 +2,7 @@ import { supabase } from './supabase.js';
 import { getCurrentUser } from './auth.js';
 import { removeFiles } from './storage.js';
 
-const RECIPE_SELECT =
+export const RECIPE_SELECT =
   '*, category:categories(id,name,icon), ' +
   'author:profiles!recipes_author_id_fkey(id,display_name,avatar_path), ' +
   'photos:recipe_photos(id,storage_path,is_cover,position)';
@@ -30,6 +30,16 @@ export async function listRecipes({ search, categoryId, featuredOnly, limit = 24
     query = query.or(`title.ilike.%${term}%,description.ilike.%${term}%`);
   }
   const { data, error } = await query;
+  return { data: data || [], error };
+}
+
+export async function listRecipesByAuthor(authorId, limit = 100) {
+  const { data, error } = await supabase
+    .from('recipes')
+    .select(RECIPE_SELECT)
+    .eq('author_id', authorId)
+    .order('created_at', { ascending: false })
+    .limit(limit);
   return { data: data || [], error };
 }
 
