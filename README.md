@@ -138,4 +138,4 @@ erDiagram
 
 Netlify builds the static `dist/` output. In the Netlify UI: **Add new site → Import from Git** → pick this repo, set build command `npm run build`, publish directory `dist`, and add the two `VITE_` environment variables. `netlify.toml` already contains this configuration.
 
-Live demo: _deployed URL goes here after first deploy._
+Live demo: **https://recipe-swap.netlify.app/**
