@@ -87,6 +87,7 @@ recipe-swap/
 |---|---|---|
 | Feed | `index.html` | Browse/search/filter recipes, featured row |
 | Login / Register | `login.html`, `register.html` | Supabase Auth |
+| Password reset | `forgot-password.html`, `update-password.html` | Email reset link → new password |
 | Recipe detail | `recipe.html?id=` | Photos, ingredients, steps, rating, comments, favorite, meal-plan add |
 | Recipe editor | `recipe-edit.html` | Create/edit recipe + photo management |
 | Profile | `profile.html` | Avatar, bio, my recipes, my favorites |
