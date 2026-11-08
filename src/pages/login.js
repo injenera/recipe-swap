@@ -47,6 +47,9 @@ async function init() {
               <button type="submit" id="submit-btn" class="btn btn-recipe w-100">Log in</button>
             </form>
             <p class="text-center text-muted mt-3 mb-0">
+              <a href="/forgot-password.html">Forgot your password?</a>
+            </p>
+            <p class="text-center text-muted mt-2 mb-0">
               New here? <a href="/register.html">Create an account</a>
             </p>
           </div>

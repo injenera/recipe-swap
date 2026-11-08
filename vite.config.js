@@ -11,6 +11,8 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         login: resolve(__dirname, 'login.html'),
         register: resolve(__dirname, 'register.html'),
+        'forgot-password': resolve(__dirname, 'forgot-password.html'),
+        'update-password': resolve(__dirname, 'update-password.html'),
         recipe: resolve(__dirname, 'recipe.html'),
         'recipe-edit': resolve(__dirname, 'recipe-edit.html'),
         profile: resolve(__dirname, 'profile.html'),
