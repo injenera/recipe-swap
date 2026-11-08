@@ -5,6 +5,7 @@ import '../styles/main.css';
 import { renderNavbar } from '../components/navbar.js';
 import { renderRecipeCard } from '../components/recipeCard.js';
 import { getCurrentUser } from '../services/auth.js';
+import { getCommunityStats } from '../services/supabase.js';
 import { listCategories } from '../services/categories.js';
 import { getRecipeStats, listRecipes } from '../services/recipes.js';
 import { escapeHtml, showAlert } from '../utils/dom.js';
@@ -36,7 +37,8 @@ function renderSkeleton(user) {
   app.innerHTML = `
     <section class="feed-hero text-center">
       <h1 class="display-6 fw-bold mb-2">Find your next favorite dish</h1>
-      <p class="lead text-muted mb-4">Share recipes, discover new flavors and plan your week with the community.</p>
+      <p class="lead text-muted mb-2">Share recipes, discover new flavors and plan your week with the community.</p>
+      <p id="community-stats" class="small text-muted mb-4"></p>
       <a href="${user ? '/recipe-edit.html' : '/register.html'}" class="btn btn-recipe btn-lg">
         <i class="bi bi-plus-circle me-2"></i>Share a recipe
       </a>
@@ -165,6 +167,12 @@ async function init() {
   const { data: categories } = await listCategories();
   state.categories = categories;
   renderCategoryPills();
+
+  getCommunityStats().then(({ data }) => {
+    if (!data) return;
+    document.getElementById('community-stats').textContent =
+      `${data.recipes} recipes shared by ${data.cooks} cooks`;
+  });
 
   await Promise.all([loadFeatured(), loadFeed()]);
 }

@@ -16,3 +16,13 @@ export const supabase = createClient(
   supabaseUrl || 'https://placeholder.supabase.co',
   supabaseAnonKey || 'placeholder-anon-key'
 );
+
+export async function getCommunityStats() {
+  try {
+    const res = await fetch(`${supabaseUrl}/functions/v1/community-stats`);
+    if (!res.ok) return { data: null, error: new Error(`Stats request failed (${res.status}).`) };
+    return { data: await res.json(), error: null };
+  } catch (err) {
+    return { data: null, error: err };
+  }
+}

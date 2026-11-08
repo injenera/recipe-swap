@@ -412,3 +412,8 @@ enabled = true
 # declarative_schema_path = "./database"
 # JSON string passed through to pg-delta SQL formatting.
 # format_options = "{\"keywordCase\":\"upper\",\"indent\":2,\"maxWidth\":80,\"commaStyle\":\"trailing\"}"
+
+[functions.community-stats]
+# Public aggregate counts; no user JWT required. The function itself only
+# queries publicly-readable tables with the anon key.
+verify_jwt = false
