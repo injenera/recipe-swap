@@ -4,7 +4,7 @@ import 'bootstrap';
 import '../styles/main.css';
 import { renderNavbar } from '../components/navbar.js';
 import { renderRecipeCard } from '../components/recipeCard.js';
-import { getCurrentUser, getProfile, updateProfile } from '../services/auth.js';
+import { getCurrentUser, getProfile, updatePassword, updateProfile } from '../services/auth.js';
 import { listFavorites } from '../services/engagement.js';
 import { getRecipeStats, listRecipesByAuthor } from '../services/recipes.js';
 import { getPublicUrl, removeFiles, uploadAvatar } from '../services/storage.js';
@@ -67,6 +67,29 @@ function renderProfile(app) {
               <div class="d-flex gap-2 mt-2">
                 <button type="button" class="btn btn-recipe btn-sm" id="save-bio-btn">Save</button>
                 <button type="button" class="btn btn-outline-secondary btn-sm" id="cancel-bio-btn">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card mt-3">
+          <div class="card-body p-4">
+            <h2 class="h6 mb-2"><i class="bi bi-shield-lock me-1"></i>Security</h2>
+            <div id="password-view">
+              <button type="button" id="edit-password-btn" class="btn btn-link btn-sm p-0">Change password</button>
+            </div>
+            <div id="password-edit" class="d-none">
+              <div class="mb-2">
+                <input type="password" class="form-control form-control-sm" id="new-password"
+                  autocomplete="new-password" placeholder="New password (min 6 characters)" />
+              </div>
+              <div class="mb-2">
+                <input type="password" class="form-control form-control-sm" id="confirm-password"
+                  autocomplete="new-password" placeholder="Repeat new password" />
+              </div>
+              <div id="password-alert"></div>
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-recipe btn-sm" id="save-password-btn">Save</button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="cancel-password-btn">Cancel</button>
               </div>
             </div>
           </div>
@@ -266,6 +289,38 @@ async function init() {
     document.getElementById('bio-text').textContent = bio || 'No bio yet.';
     bioView.classList.remove('d-none');
     bioEdit.classList.add('d-none');
+  });
+
+  // Password change
+  const editPasswordBtn = document.getElementById('edit-password-btn');
+  const passwordView = document.getElementById('password-view');
+  const passwordEdit = document.getElementById('password-edit');
+  const closePasswordEdit = () => {
+    passwordView.classList.remove('d-none');
+    passwordEdit.classList.add('d-none');
+    document.getElementById('new-password').value = '';
+    document.getElementById('confirm-password').value = '';
+    document.getElementById('password-alert').innerHTML = '';
+  };
+  editPasswordBtn?.addEventListener('click', () => {
+    passwordView.classList.add('d-none');
+    passwordEdit.classList.remove('d-none');
+    document.getElementById('new-password')?.focus();
+  });
+  document.getElementById('cancel-password-btn')?.addEventListener('click', closePasswordEdit);
+  document.getElementById('save-password-btn')?.addEventListener('click', async () => {
+    const newPassword = document.getElementById('new-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+    const showPwError = (msg) => showAlert('#password-alert', msg);
+    if (newPassword.length < 6) return showPwError('Password must be at least 6 characters.');
+    if (newPassword !== confirmPassword) return showPwError('Passwords do not match.');
+    const btn = document.getElementById('save-password-btn');
+    setLoading(btn, true, 'Saving...');
+    const { error } = await updatePassword(newPassword);
+    setLoading(btn, false);
+    if (error) return showPwError(error.message);
+    closePasswordEdit();
+    showAlert('#alert-area', 'Password updated.', 'success');
   });
 }
 

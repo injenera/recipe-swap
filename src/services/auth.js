@@ -37,6 +37,11 @@ export async function login(email, password) {
   return { data, error };
 }
 
+export async function updatePassword(newPassword) {
+  const { data, error } = await supabase.auth.updateUser({ password: newPassword });
+  return { data, error };
+}
+
 export async function logout() {
   const { error } = await supabase.auth.signOut();
   return { error };
